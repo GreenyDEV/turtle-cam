@@ -80,17 +80,19 @@
     <script>
         // Set up the FLV.js player
         if (flvjs.isSupported()) {
-            const videoElement = document.getElementById('video');
-            const flvPlayer = flvjs.createPlayer({
-                type: 'flv',
-                url: 'http://localhost:8000/live/stream.flv'
-            });
-            flvPlayer.attachMediaElement(videoElement);
-            flvPlayer.load();
-            flvPlayer.play();
-        } else {
-            console.error('FLV.js is not supported in this browser');
-        }
+    const videoElement = document.getElementById('video');
+    // Use the current location to dynamically determine the base URL
+    const flvPlayer = flvjs.createPlayer({
+        type: 'flv',
+        url: `${window.location.protocol}//${window.location.hostname}/live/stream.flv`
+    });
+    flvPlayer.attachMediaElement(videoElement);
+    flvPlayer.load();
+    flvPlayer.play();
+} else {
+    console.error('FLV is not supported in this browser.');
+}
+
 
         // Manually trigger auto-play
         window.onload = function() {
